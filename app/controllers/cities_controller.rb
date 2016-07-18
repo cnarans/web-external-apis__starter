@@ -2,6 +2,6 @@ MyApp.get "/" do
   erb :"home"
 end
 
-MyApp.get "/example" do
+MyApp.get "/weather" do
   erb :"weather"
 end
