@@ -3,5 +3,9 @@ MyApp.get "/" do
 end
 
 MyApp.get "/weather" do
-  erb :"weather"
+  @name = params[:name]
+  @info = Weather.getWeather(params[:location])
+  @wind = Weather.windDirection(@info["daily"]["data"][0]["windBearing"])
+  @current = Time.at(@info["currently"]["time"])
+  erb :"/weather"
 end
