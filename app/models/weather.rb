@@ -108,7 +108,7 @@ end
 #
 # info - array of the weather information from forecast.io
 #
-def precipchance(info)
+def precipChance(info)
 	return info["currently"]["precipProbability"]*100
 end
 
@@ -118,7 +118,7 @@ end
 # day - days from the present with 0=today
 #
 def sunrise(info, day)
-	return (Time.at(info["daily"]["data"][day]["sunriseTime"])+(@info["offset"]*3600)+18000).strftime('%H:%M:%S')
+	return (Time.at(info["daily"]["data"][day]["sunriseTime"])+(info["offset"]*3600)+18000).strftime('%H:%M:%S')
 end
 
 # returns the current day's sunset time in local time HH:MM:SS
@@ -127,7 +127,7 @@ end
 # day - days from the present with 0=today
 #
 def sunset(info, day)
-	return (Time.at(info["daily"]["data"][day]["sunsetTime"])+(@info["offset"]*3600)+18000).strftime('%H:%M:%S')
+	return (Time.at(info["daily"]["data"][day]["sunsetTime"])+(info["offset"]*3600)+18000).strftime('%H:%M:%S')
 end
 
 # returns the current apparent temperature
@@ -177,6 +177,14 @@ end
 #
 def tempAt(info, time)
 	return info["hourly"]["data"][time]["temperature"]
+end
+
+# returns the current local time as a Time object
+#
+# info - array of the weather information from forecast.io
+#
+def getTime(info)
+	return Time.at(info["currently"]["time"]) +  ((info["offset"]+5)*3600)
 end
 
 #test = getWeather("41.2524,-95.9980")
