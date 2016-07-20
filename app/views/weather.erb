@@ -1,16 +1,16 @@
 <div class="city-detail">
   <section class="city-header">
     <h2><%= @name %></h2>
-    <h4><%= @info["currently"]["summary"] %></h4>
-    <h1><%= @info["currently"]["temperature"].round %>˚</h1>
+    <h4><%= summary(@info) %></h4>
+    <h1><%= currentTemp(@info).round %>˚</h1>
   </section>
 
   <section class="today">
     <ul class="today-overview">
       <li>Saturday</li>
       <li></li>
-      <li><%= @info["daily"]["data"][0]["temperatureMin"].round %>˚</li>
-      <li><%= @info["daily"]["data"][0]["temperatureMax"].round %>˚</li>
+      <li><%= highTemp(@info,0).round %>˚</li>
+      <li><%= lowTemp(@info,0).round %>˚</li>
     </ul>
 
     <div class="today-hourly-list-container">
@@ -19,257 +19,52 @@
           <ul>
             <li>Now</li>
             
-            <li><%= @info["currently"]["temperature"].round %>˚</li>
+            <li><%= currentTemp(@info).round %>˚</li>
           </ul>
         </li>
+
+        <% for i in 0..22 %>
         <li>
           <ul>
-            <li>9 AM</li>
-            
-            <li>50˚</li>
+            <li><%= (@current+((i+1)*3600)).strftime('%l %p') %></li>
+            <li><%= tempAt(@info, i+1).round %>˚</li>
           </ul>
         </li>
-        <li>
-          <ul>
-            <li>10 AM</li>
-            
-            <li>53˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>11 AM</li>
-            
-            <li>56˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>12 PM</li>
-            
-            <li>58˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>1 PM</li>
-            
-            <li>60˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>2 PM</li>
-            
-            <li>62˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>3 PM</li>
-            
-            <li>62˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>4 PM</li>
-            
-            <li>62˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>5 PM</li>
-            
-            <li>59˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>6 PM</li>
-            
-            <li>56˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>7 PM</li>
-            
-            <li>54˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>8 PM</li>
-            
-            <li>53˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>9 PM</li>
-            
-            <li>52˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>10 PM</li>
-            
-            <li>51˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>11 PM</li>
-            
-            <li>51˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>12 AM</li>
-            
-            <li>50˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>1 AM</li>
-            
-            <li>50˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>2 AM</li>
-            
-            <li>50˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>3 AM</li>
-            
-            <li>49˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>4 AM</li>
-            
-            <li>48˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>5 AM</li>
-            
-            <li>48˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>6 AM</li>
-            
-            <li>48˚</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>7 AM</li>
-            
-            <li>48˚</li>
-          </ul>
-        </li>
+        <% end %>
       </ul>
     </div>
   </section>
 
   <section class="forecast">
     <ul class="forecast-list">
+
+    <% for i in 0..7 %>
       <li>
         <ul>
-          <li>Saturday</li>
-          
-          <li><%= @info["daily"]["data"][0]["temperatureMin"].round %>˚</li>
-          <li><%= @info["daily"]["data"][0]["temperatureMax"].round %>˚</li>
+          <li><%= (@current+(86400*i)).strftime('%A') %></li>
+          <li><%= highTemp(@info,i).round %>˚</li>
+          <li><%= lowTemp(@info,i).round %>˚</li>
         </ul>
       </li>
-      <li>
-        <ul>
-          <li>Sunday</li>
-          
-          <li><%= @info["daily"]["data"][1]["temperatureMin"].round %>˚</li>
-          <li><%= @info["daily"]["data"][1]["temperatureMax"].round %>˚</li>
-        </ul>
-      </li>
-      <li>
-        <ul>
-          <li>Monday</li>
-          
-          <li><%= @info["daily"]["data"][2]["temperatureMin"].round %>˚</li>
-          <li><%= @info["daily"]["data"][2]["temperatureMax"].round %>˚</li>
-        </ul>
-      </li>
-      <li>
-        <ul>
-          <li>Tuesday</li>
-          
-          <li><%= @info["daily"]["data"][3]["temperatureMin"].round %>˚</li>
-          <li><%= @info["daily"]["data"][3]["temperatureMax"].round %>˚</li>
-        </ul>
-      </li>
-      <li>
-        <ul>
-          <li>Wednesday</li>
-          
-          <li><%= @info["daily"]["data"][4]["temperatureMin"].round %>˚</li>
-          <li><%= @info["daily"]["data"][4]["temperatureMax"].round %>˚</li>
-        </ul>
-      </li>
-      <li>
-        <ul>
-          <li>Thursday</li>
-          
-          <li><%= @info["daily"]["data"][5]["temperatureMin"].round %>˚</li>
-          <li><%= @info["daily"]["data"][5]["temperatureMax"].round %>˚</li>
-        </ul>
-      </li>
-      <li>
-        <ul>
-          <li>Friday</li>
-          
-          <li><%= @info["daily"]["data"][6]["temperatureMin"].round %>˚</li>
-          <li><%= @info["daily"]["data"][6]["temperatureMax"].round %>˚</li>
-        </ul>
-      </li>
-      <li>
-        <ul>
-          <li>Saturday</li>
-          
-          <li><%= @info["daily"]["data"][7]["temperatureMin"].round %>˚</li>
-          <li><%= @info["daily"]["data"][7]["temperatureMax"].round %>˚</li>
-        </ul>
-      </li>
+    <% end %>
+
     </ul>
   </section>
 
   <section class="today-details">
-    <p class="today-summary"><%= @info["daily"]["summary"]%></p>
+    <p class="today-summary"><%= dailySummary(@info) %></p>
 
     <ul class="today-details-list">
       <li>
         <ul>
           <li>Sunrise:</li>
-          <li><%= @info["daily"]["data"][0]["sunriseTime"] %></li>
+          <li><%= sunrise(@info, 0) %></li>
         </ul>
       </li>
       <li>
         <ul>
           <li>Sunset:</li>
-          <li><%= @info["daily"]["data"][0]["sunriseTime"] %></li>
+          <li><%= sunset(@info, 0) %></li>
         </ul>
       </li>
       <li>
@@ -277,13 +72,13 @@
       <li>
         <ul>
           <li>Chance of Rain:</li>
-          <li><%= @info["currently"]["precipProbability"] %>%</li>
+          <li><%= precipchance(@info).round %>%</li>
         </ul>
       </li>
       <li>
         <ul>
           <li>Humidity:</li>
-          <li><%= @info["currently"]["humidity"] %>%</li>
+          <li><%= humidity(@info).round %>%</li>
         </ul>
       </li>
       <li>
@@ -291,13 +86,13 @@
       <li>
         <ul>
           <li>Wind:</li>
-          <li><%= @info["currently"]["windSpeed"] %> mph <%= @wind %></li>
+          <li><%= windspeed(@info) %> mph <%= @wind %></li>
         </ul>
       </li>
       <li>
         <ul>
           <li>Feels like:</li>
-          <li><%= @info["currently"]["apparentTemperature"].round %>˚</li>
+          <li><%= apparentTemp(@info).round %>˚</li>
         </ul>
       </li>
       <li>
@@ -305,13 +100,13 @@
       <li>
         <ul>
           <li>Precipitation:</li>
-          <li><%= @info["currently"]["precipIntensity"] %></li>
+          <li><%= precip(@info) %></li>
         </ul>
       </li>
       <li>
         <ul>
           <li>Pressure:</li>
-          <li><%= @info["currently"]["pressure"] %> in</li>
+          <li><%= pressure(@info).round(3) %> in</li>
         </ul>
       </li>
       <li>
@@ -319,7 +114,7 @@
       <li>
         <ul>
           <li>Visibility:</li>
-          <li><%= @info["currently"]["visibility"] %> mi</li>
+          <li><%= visibility(@info) %> mi</li>
         </ul>
       </li>
     </ul>
